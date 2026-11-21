@@ -1,0 +1,43 @@
+#!/bin/bash
+
+<<help
+
+this is a shell scripts
+
+to crate user
+
+
+help
+
+echo "======Create of user started========"
+
+read -p "enter the username:" username
+
+read -p "enter the password:" password
+
+sudo useradd -m "$username"
+
+echo -e "$password\n$password" | sudo passwd "$username"
+
+echo "=========Creation of user completed========"
+
+
+sudo userdel $username
+
+echo "=========Deletion of complete========="
+
+
+cat /etc/passwd | grep $username | wc
+
+echo "as wc is 0 the user is deleted"
+
+if [ $(cat /etc/passwd | grep $username | wc | awk '{print $1}') == 0 ];
+
+then
+   
+	echo "as wc is 0 the user is deleted"
+else
+	echo "the user was not deleted"
+ 
+
+fi	
